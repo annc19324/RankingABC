@@ -203,25 +203,38 @@ function App() {
         </div>
 
         {/* Global Video Settings */}
-        <div style={{ display: 'flex', gap: '10px', marginBottom: '15px', background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px' }}>
-          <div className="control-group" style={{ margin: 0, flex: 1 }}>
-            <label>Font chữ</label>
-            <select value={videoSettings.font} onChange={(e) => setVideoSetting('font', e.target.value)}>
-              <option value="Inter">Inter (Hiện đại)</option>
-              <option value="Roboto">Roboto</option>
-              <option value="Arial">Arial</option>
-              <option value="Courier New">Courier New (Cổ điển)</option>
-              <option value="Comic Sans MS">Comic Sans (Vui nhộn)</option>
-            </select>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '15px', background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px' }}>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <div className="control-group" style={{ margin: 0, flex: 1 }}>
+              <label>Font chữ</label>
+              <select value={videoSettings.font} onChange={(e) => setVideoSetting('font', e.target.value)}>
+                <option value="Inter">Inter (Hiện đại)</option>
+                <option value="Roboto">Roboto</option>
+                <option value="Arial">Arial</option>
+                <option value="Courier New">Courier New (Cổ điển)</option>
+                <option value="Comic Sans MS">Comic Sans (Vui nhộn)</option>
+              </select>
+            </div>
+            <div className="control-group" style={{ margin: 0, flex: 1 }}>
+              <label>Thời lượng 1 bảng (s)</label>
+              <input 
+                type="number" 
+                value={videoSettings.durationPerList} 
+                onChange={(e) => setVideoSetting('durationPerList', Math.max(1, Number(e.target.value)))} 
+                min={1}
+              />
+            </div>
           </div>
-          <div className="control-group" style={{ margin: 0, flex: 1 }}>
-            <label>Thời lượng 1 bảng (giây)</label>
-            <input 
-              type="number" 
-              value={videoSettings.durationPerList} 
-              onChange={(e) => setVideoSetting('durationPerList', Math.max(1, Number(e.target.value)))} 
-              min={1}
-            />
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <div className="control-group" style={{ margin: 0, flex: 1 }}>
+              <label>Hiệu ứng nổi (Particle Effect)</label>
+              <select value={videoSettings.effect || 'particles'} onChange={(e) => setVideoSetting('effect', e.target.value)}>
+                <option value="particles">Hạt lơ lửng (Mặc định)</option>
+                <option value="snow">Tuyết rơi</option>
+                <option value="matrix">Ma trận (Matrix xanh)</option>
+                <option value="none">Không có (Tắt)</option>
+              </select>
+            </div>
           </div>
         </div>
 
