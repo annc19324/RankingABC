@@ -188,10 +188,10 @@ export default function ExportManager() {
           setExportProgress(Math.floor(progress * 100));
         });
         
-        const baseURL = window.location.origin;
+        const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.10/dist/umd';
         await ffmpeg.load({
-          coreURL: `${baseURL}/ffmpeg/ffmpeg-core.js`,
-          wasmURL: `${baseURL}/ffmpeg/ffmpeg-core.wasm`
+          coreURL: `${baseURL}/ffmpeg-core.js`,
+          wasmURL: `${baseURL}/ffmpeg-core.wasm`
         });
 
         setExportStatus('Đang nén thành MP4 chuẩn...');
