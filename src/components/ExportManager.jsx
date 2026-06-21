@@ -4,8 +4,8 @@ import CanvasRenderer from './CanvasRenderer';
 import { Play, Square, Download, RefreshCw, Cpu } from 'lucide-react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile } from '@ffmpeg/util';
-import coreURL from '@ffmpeg/core/dist/esm/ffmpeg-core.js?url';
-import wasmURL from '@ffmpeg/core/dist/esm/ffmpeg-core.wasm?url';
+import coreURL from '@ffmpeg/core?url';
+import wasmURL from '@ffmpeg/core/wasm?url';
 
 export default function ExportManager() {
   const { tierLists, videoSettings, activeAudio, audioBlobUrl } = useStore();
