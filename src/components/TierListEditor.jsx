@@ -101,10 +101,12 @@ export function TierListBoard({ logicalWidth, logicalHeight }) {
         const titleFontSizePx = isPreview ? Math.floor(logicalHeight * 0.04) : 32;
 
         return (
-        <div key={tl.id} style={{ display: 'flex', flexDirection: 'column', padding: `${paddingPx}px`, borderLeft: idx > 0 ? '2px solid rgba(255,255,255,0.2)' : 'none' }}>
-          <h2 style={{ textAlign: 'center', margin: isPreview ? `0 0 ${paddingPx}px 0` : '20px 0', fontFamily: font, fontSize: `${titleFontSizePx}px`, textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>{tl.name}</h2>
+        <div key={tl.id} style={{ display: 'flex', flexDirection: 'column', padding: `${paddingPx}px`, paddingBottom: 0, borderLeft: idx > 0 ? '2px solid rgba(255,255,255,0.2)' : 'none' }}>
+          <div style={{ height: isPreview ? `${startYPx}px` : 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <h2 style={{ textAlign: 'center', margin: 0, fontFamily: font, fontSize: `${titleFontSizePx}px`, whiteSpace: 'nowrap', textShadow: '0 2px 4px rgba(0,0,0,0.8)' }}>{tl.name}</h2>
+          </div>
           
-          <div style={{ display: 'flex', flexDirection: 'column', gap: `${gapPx}px`, flex: 1 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: `${gapPx}px`, flex: 1, height: isPreview ? `${maxAvailableHeightPx}px` : 'auto' }}>
             {tl.tiers.map(tier => (
               <div 
                 key={tier.id} 
