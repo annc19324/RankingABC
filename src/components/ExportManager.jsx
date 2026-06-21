@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useStore } from '../store';
 import CanvasRenderer from './CanvasRenderer';
-import { TierListBoard } from './TierListEditor';
 import { Play, Square, Download, RefreshCw, Cpu } from 'lucide-react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
-import { fetchFile } from '@ffmpeg/util';
+import { fetchFile, toBlobURL } from '@ffmpeg/util';
 
 export default function ExportManager() {
   const { tierLists, videoSettings, activeAudio, audioBlobUrl } = useStore();
@@ -188,10 +187,10 @@ export default function ExportManager() {
           setExportProgress(Math.floor(progress * 100));
         });
         
-        const baseURL = window.location.origin;
+        const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.10/dist/umd';
         await ffmpeg.load({
-          coreURL: `${baseURL}/ffmpeg/ffmpeg-core.js?t=${Date.now()}`,
-          wasmURL: `${baseURL}/ffmpeg/ffmpeg-core.wasm?t=${Date.now()}`
+          coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+          wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
         });
 
         setExportStatus('Đang nén thành MP4 chuẩn...');
