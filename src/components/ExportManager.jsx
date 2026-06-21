@@ -5,6 +5,8 @@ import { TierListBoard } from './TierListEditor';
 import { Play, Square, Download, RefreshCw, Cpu } from 'lucide-react';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile } from '@ffmpeg/util';
+import coreURL from '@ffmpeg/core/ffmpeg-core.js?url';
+import wasmURL from '@ffmpeg/core/ffmpeg-core.wasm?url';
 
 export default function ExportManager() {
   const { tierLists, videoSettings, activeAudio, audioBlobUrl } = useStore();
@@ -188,10 +190,9 @@ export default function ExportManager() {
           setExportProgress(Math.floor(progress * 100));
         });
         
-        const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.10/dist/umd';
         await ffmpeg.load({
-          coreURL: `${baseURL}/ffmpeg-core.js`,
-          wasmURL: `${baseURL}/ffmpeg-core.wasm`
+          coreURL,
+          wasmURL
         });
 
         setExportStatus('Đang nén thành MP4 chuẩn...');
