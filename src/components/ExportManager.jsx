@@ -239,30 +239,29 @@ export default function ExportManager() {
 
     recorder.start();
 
-    // Render loop for export
-    const frames = totalDuration * 30; // 30fps
-    let currentFrame = 0;
+    // Render loop for export using REAL TIME to prevent lag in MediaRecorder
+    let startTime = null;
 
-    const renderNextFrame = () => {
-      if (currentFrame === 0) {
+    const renderNextFrame = (timestamp) => {
+      if (!startTime) {
+        startTime = timestamp;
         setExportStatus('Đang vẽ và ghi hình...');
       }
 
-      if (currentFrame >= frames) {
+      const elapsedSec = (timestamp - startTime) / 1000;
+
+      if (elapsedSec >= totalDuration) {
         recorder.stop();
         return;
       }
       
-      const t = currentFrame / 30;
-      rendererRef.current.drawFrame(t);
-      setExportProgress(Math.floor((currentFrame / frames) * 100));
+      rendererRef.current.drawFrame(elapsedSec);
+      setExportProgress(Math.floor((elapsedSec / totalDuration) * 100));
       
-      currentFrame++;
-      // Give UI time to update and browser time to record
-      setTimeout(renderNextFrame, 1000/30);
+      requestAnimationFrame(renderNextFrame);
     };
 
-    renderNextFrame();
+    requestAnimationFrame(renderNextFrame);
   };
 
   return (

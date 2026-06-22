@@ -160,27 +160,32 @@ const CanvasRenderer = forwardRef(({ width = 1920, height = 1080, previewTime = 
 
     // Draw Particles on top
     const activeEffect = videoSettings.effect || 'particles';
+    const effectSpeed = videoSettings.effectSpeed || 1;
+    const effectDensity = videoSettings.effectDensity || 1;
+    
     if (activeEffect === 'particles') {
       ctx.save();
-      for(let i = 0; i < 80; i++) {
-         const x = (Math.sin(i * 24.5 + time * 0.3) * 0.5 + 0.5) * width;
-         const y = ((i * 133 + time * -40) % height + height) % height;
-         const radius = (Math.sin(i * 7 + time * 1.5) * 0.5 + 0.5) * 4 + 1;
+      const count = Math.floor(80 * effectDensity);
+      for(let i = 0; i < count; i++) {
+         const x = (Math.sin(i * 24.5 + time * 0.3 * effectSpeed) * 0.5 + 0.5) * width;
+         const y = ((i * 133 + time * -40 * effectSpeed) % height + height) % height;
+         const radius = (Math.sin(i * 7 + time * 1.5 * effectSpeed) * 0.5 + 0.5) * 4 + 1;
          ctx.beginPath();
          ctx.arc(x, y, radius, 0, Math.PI*2);
-         ctx.fillStyle = `rgba(59, 130, 246, ${Math.abs(Math.sin(i + time)) * 0.6})`;
+         ctx.fillStyle = `rgba(59, 130, 246, ${Math.abs(Math.sin(i + time * effectSpeed)) * 0.6})`;
          ctx.fill();
       }
       ctx.restore();
     } else if (activeEffect === 'snow') {
       ctx.save();
-      for(let i = 0; i < 100; i++) {
-         const x = (Math.sin(i * 12.5) * width + time * 20) % width;
-         const y = (i * 25 + time * (30 + i % 20)) % height;
+      const count = Math.floor(100 * effectDensity);
+      for(let i = 0; i < count; i++) {
+         const x = (Math.sin(i * 12.5) * width + time * 20 * effectSpeed) % width;
+         const y = (i * 25 + time * (30 + i % 20) * effectSpeed) % height;
          const radius = (i % 3) + 2;
          ctx.beginPath();
          ctx.arc(x, y, radius, 0, Math.PI*2);
-         ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(Math.sin(i + time*2)) * 0.5 + 0.3})`;
+         ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(Math.sin(i + time * 2 * effectSpeed)) * 0.5 + 0.3})`;
          ctx.fill();
       }
       ctx.restore();
@@ -188,9 +193,10 @@ const CanvasRenderer = forwardRef(({ width = 1920, height = 1080, previewTime = 
       ctx.save();
       ctx.fillStyle = 'rgba(0, 255, 0, 0.4)';
       ctx.font = '20px monospace';
-      for(let i = 0; i < 40; i++) {
-         const x = (i * 50) % width;
-         const y = ((time * (100 + i*10)) % height + height) % height;
+      const count = Math.floor(40 * effectDensity);
+      for(let i = 0; i < count; i++) {
+         const x = (i * (50 / effectDensity)) % width;
+         const y = ((time * (100 + i*10) * effectSpeed) % height + height) % height;
          ctx.fillText(String.fromCharCode(0x30A0 + Math.random() * 96), x, y);
       }
       ctx.restore();

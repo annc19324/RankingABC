@@ -227,13 +227,31 @@ function App() {
           </div>
           <div style={{ display: 'flex', gap: '10px' }}>
             <div className="control-group" style={{ margin: 0, flex: 1 }}>
-              <label>Hiệu ứng nổi (Particle Effect)</label>
+              <label>Hiệu ứng nền</label>
               <select value={videoSettings.effect || 'particles'} onChange={(e) => setVideoSetting('effect', e.target.value)}>
-                <option value="particles">Hạt lơ lửng (Mặc định)</option>
+                <option value="particles">Hạt lơ lửng</option>
                 <option value="snow">Tuyết rơi</option>
-                <option value="matrix">Ma trận (Matrix xanh)</option>
-                <option value="none">Không có (Tắt)</option>
+                <option value="matrix">Ma trận</option>
+                <option value="none">Tắt</option>
               </select>
+            </div>
+            <div className="control-group" style={{ margin: 0, flex: 1 }}>
+              <label>Tốc độ bay (x{videoSettings.effectSpeed || 1})</label>
+              <input 
+                type="range" 
+                min="0.1" max="3" step="0.1" 
+                value={videoSettings.effectSpeed || 1} 
+                onChange={(e) => setVideoSetting('effectSpeed', Number(e.target.value))} 
+              />
+            </div>
+            <div className="control-group" style={{ margin: 0, flex: 1 }}>
+              <label>Độ dày đặc (x{videoSettings.effectDensity || 1})</label>
+              <input 
+                type="range" 
+                min="0.1" max="3" step="0.1" 
+                value={videoSettings.effectDensity || 1} 
+                onChange={(e) => setVideoSetting('effectDensity', Number(e.target.value))} 
+              />
             </div>
           </div>
         </div>

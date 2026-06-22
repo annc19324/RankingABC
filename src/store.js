@@ -124,6 +124,9 @@ export const useStore = create(
         font: 'Inter',
         durationPerList: 10, // seconds
         aspectRatio: '9:16', // Default for TikTok
+        effect: 'particles',
+        effectSpeed: 1,
+        effectDensity: 1
       },
 
       setVideoSetting: (key, value) => set((state) => ({
